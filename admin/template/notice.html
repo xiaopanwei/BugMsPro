@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布公告</title>
+</head>
+<script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+<link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+<body>
+<h1 class="h1">发布公告</h1>
+<form class="layui-form adminform">
+    <div class="layui-form-item">
+        <label class="layui-form-label">公告标题</label>
+        <div class="layui-input-block">
+            <input type="text" id="notice_title" name="notice_title" required lay-verify="required" placeholder="请输入公告标题" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公告链接</label>
+        <div class="layui-input-block">
+            <input id="notice_url" type="text" name="notice_url" required lay-verify="required" placeholder="请输入公告链接" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+        </div>
+    </div>
+</form>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+   $.ajax({
+                type: "post",
+                contentType:"application/string",
+                dataType:"json",
+                async:false,
+                url : "../admin/releaseNotice?notice_title="+data.field.notice_title+"&notice_url="+data.field.notice_url,
+                success: function (data) {
+                layer.alert(data.msg,
+                 function () {
+                    window.location.href="../admin/notice";
+                });
+                }
+           	});
+    return false;
+  });
+});
+
+
+</script>
+</body>
+</html>

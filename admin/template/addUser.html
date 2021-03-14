@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加用户</title>
+</head>
+ <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+<body>
+<h1 class="h1">添加用户</h1>
+<form class="layui-form adminform">
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号</label>
+        <div class="layui-input-block">
+            <input type="text" id="user_name" name="user_name" required lay-verify="required" placeholder="请输入账号" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input id="user_password" type="text" name="user_password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+            <input id="user_email" type="text" name="user_email" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-block">
+            <input id="user_phone" type="text" name="user_phone" required lay-verify="required" placeholder="请输入电话" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">类型</label>
+    <div class="layui-input-block">
+      <input type="radio" name="user_type" value="0" title="管理员">
+      <input type="radio" name="user_type" value="1" title="操作员">
+    </div>
+  </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+        </div>
+    </div>
+</form>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+   $.ajax({
+                type: "post",
+                contentType:"application/string",
+                dataType:"json",
+                async:false,
+                url : "../admin/doAddUser?user_name="+data.field.user_name
+                +"&user_password="+data.field.user_password
+                +"&user_email="+data.field.user_email
+                +"&user_phone="+data.field.user_phone
+                +"&user_type="+data.field.user_type,
+                success: function (data) {
+                layer.alert(data.msg,
+                 function () {
+                    window.location.href="../admin/addUser";
+                });
+                }
+           	});
+    return false;
+  });
+});
+
+
+</script>
+</body>
+</html>

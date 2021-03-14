@@ -1,0 +1,86 @@
+*{
+    background-color:#eeeeee;
+}
+.login{
+    height:350px;
+    width:500px;
+    position: absolute;
+    left:33%;
+    top:28%;
+    background-color:#fff;
+}
+
+.login-top{
+    margin-top:10px;
+    margin-bottom:20px;
+    padding:20px;
+    background-color:#fff;
+    border-bottom: 1px #eee solid;
+}
+
+.login-left{
+    width:160px;
+    height:170px;
+    float:left;
+    background-color:#fff;
+    text-align:center;
+}
+
+.login-right{
+    height:170px;
+    width:333px;
+    float:right;
+    background-color:#fff;
+}
+
+.login-top h2{
+    background-color:#fff;
+}
+.bgc{
+    background-color:#fff;
+}
+
+
+.table-form {
+    margin-bottom: 0;
+    table-layout: fixed;
+}
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.username{
+    margin-top:10px;
+    margin-bottom:20px;
+}
+.password{
+    margin-bottom:20px;
+}
+
+.bottom{
+    margin-left: 70px;
+    margin-top:10px;
+}
+.bottom input{
+    margin-right:20px;
+    margin-top: 20px;
+}
+
+.register{
+    float:right;
+    margin-right:65px;
+    margin-top:-30px;
+}
+.forget{
+    float:right;
+    margin-right:155px;
+    margin-top:-30px;
+}
+.error{
+    background-color:#fff;
+    text-align:center;
+    color:red;
+    position: absolute;
+    left: 214px;
+}

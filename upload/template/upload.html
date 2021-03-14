@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传</title>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+</head>
+<body>
+<h1 class="h1">Bug上传</h1>
+
+<form class="layui-form bugform" method="post" action="/upload/upload">
+
+    <div class="layui-row">
+        <div class="layui-col-md6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">客户端类型</label>
+                <div class="layui-input-block">
+
+                    <select name="client_type" lay-verify="required" lay-filter="client_type">
+                        <option value="">请选择客户端类型</option>
+                        {% for clent in client_list %}
+                        <option value="{{clent.id}}">{{clent.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">市场</label>
+                <div class="layui-input-block">
+                    <select name="market" lay-verify="required" lay-search>
+                        <option value="">请选择市场</option>
+                        {% for market in market_list %}
+                        <option value="{{market.id}}">{{market.market_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">产品</label>
+                <div class="layui-input-block">
+                    <select id="belong_project" name="belong_project" lay-verify="required" lay-filter="belong_project">
+                        <option value="">请选择产品</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">Bug分类</label>
+                <div class="layui-input-block">
+
+                    <select id="belong_bug_sort" name="belong_bug_sort" lay-verify="required">
+                        <option value="">请选择Bug分类</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">Bug标题</label>
+                <div class="layui-input-block">
+                    <input type="text" id="bug_title" name="bug_title" required lay-verify="required" placeholder="请输入Bug标题"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">Bug详细内容</label>
+                <div class="layui-input-block">
+                    <textarea id="bug_content" name="bug_content" placeholder="请输入Bug详细内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-form-item">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit>立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+
+   //监听选择框选择
+  form.on('select(client_type)', function(data){
+    $.ajax({
+                type: "post",
+                contentType:"application/string",
+                dataType:"json",
+                async:false,
+                url : "../upload/getprojectlist/"+data.value,
+                success: function (data) {
+                    project_list=data.project_list;
+                    $("#belong_project").empty();
+                    $("#belong_project").append("<option value=''>请选择产品</option>");
+                    for(var i = 0; i < project_list.length; i++) {
+						$("#belong_project").append("<option value='" + project_list[i].project_id + "'>" + project_list[i].project_name + "</option>");
+					}
+
+                    bug_sort_list=data.bug_sort_list;
+
+                    $("#belong_bug_sort").empty();
+                    $("#belong_bug_sort").append("<option value=''>请选择Bug分类</option>");
+                    for(var i = 0; i < bug_sort_list.length; i++) {
+						$("#belong_bug_sort").append("<option value='" + bug_sort_list[i].sort_id + "'>" + bug_sort_list[i].sort_name + "</option>");
+					}
+					form.render('select');
+              	}
+           	});
+    });
+
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加分类</title>
+</head>
+<script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+<body>
+<h1 class="h1">添加分类</h1>
+<form class="layui-form adminform">
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类名称</label>
+        <div class="layui-input-block">
+            <input type="text" id="sort_name" name="sort_name" required lay-verify="required" placeholder="请输入分类名称"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">所属客户端</label>
+    <div class="layui-input-block" >
+      <input type="checkbox" name="PC" value="0" title="PC端" checked>
+      <input type="checkbox" name="Android" value="1" title="Android" >
+      <input type="checkbox" name="IOS" value="2" title="IOS">
+    </div>
+  </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+   $.ajax({
+                type: "post",
+                contentType:"application/string",
+                dataType:"json",
+                async:false,
+                url : "../admin/doAddSort?sort_name="+data.field.sort_name
+                +"&PC="+data.field.PC
+                +"&Android="+data.field.Android
+                +"&IOS="+data.field.IOS,
+                success: function (data) {
+                layer.alert(data.msg,
+                 function () {
+                    window.location.href="../admin/addSort";
+                });
+                }
+           	});
+    return false;
+  });
+});
+
+
+</script>
+</html>

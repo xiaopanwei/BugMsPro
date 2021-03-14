@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+</head>
+<script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+<link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+
+<body style="overflow-y: hidden">
+<ul class="layui-nav">
+    <li class="layui-nav-item fontsize20" style="margin-right:50px">
+        <a class="fontsize20">Bug管理系统</a>
+    </li>
+    <li class="layui-nav-item" style="float:right">
+        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{name}}</a>
+        <dl class="layui-nav-child">
+            <dd><a href="/logout/">退出登录</a></dd>
+        </dl>
+    </li>
+</ul>
+
+<ul id="nav" class="layui-nav layui-nav-tree layui-nav-side" style="padding:10px">
+    <li class="layui-nav-item fontsize20" style="margin-right:50px;">
+        <a href="../home" class="fontsize20">Bug管理系统</a>
+    </li>
+    <li class="layui-nav-item layui-this"><a href="../admin/notice" target="bottomhtml">发布公告</a></li>
+    <li class="layui-nav-item"><a href="../admin/addUser" target="bottomhtml">添加用户</a></li>
+    <li class="layui-nav-item"><a href="../admin/addProject" target="bottomhtml">添加产品</a></li>
+    <li class="layui-nav-item"><a href="../admin/addSort" target="bottomhtml">添加问题分类</a></li>
+
+</ul>
+
+<div class="iframe-container">
+    <iframe id="bottomhtml" name="bottomhtml" src="../admin/notice">
+    </iframe>
+</div>
+
+
+<script>
+//注意：导航 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+
+  //…
+});
+
+//动态设置 iframe高度
+var ifm = $("#bottomhtml")
+var _clientHeight=document.documentElement.clientHeight
+var _clientWidth=document.documentElement.clientWidth
+var nav = document.getElementById("nav")
+ifm.css('margin-left',nav.offsetWidth)
+
+ifm.css('height',_clientHeight-65)
+ifm.css('width',_clientWidth-nav.offsetWidth)
+
+
+</script>
+</body>
+</html>

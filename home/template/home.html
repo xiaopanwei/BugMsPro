@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+</head>
+<!--隐藏垂直滚动条-->
+<body class="container" style="overflow-y: hidden">
+<ul class="layui-nav">
+    <li class="layui-nav-item fontsize20" style="margin-right:50px">
+        {% if user_type=='0'%}
+            <a href="../admin/" class="fontsize20">Bug管理系统</a>
+        {% else %}
+            Bug管理系统
+        {%endif%}
+    </li>
+
+    <li class="layui-nav-item layui-this"><a href="../mybug/mybug/1" target="bottomhtml">我的bug</a></li>
+    <li class="layui-nav-item"><a href="../upload/" target="bottomhtml">Bug上传</a></li>
+    <li class="layui-nav-item"><a href="../search/searchindex" target="bottomhtml">搜索</a></li>
+    <li class="layui-nav-item" style="float:right">
+        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{name}}</a>
+        <dl class="layui-nav-child">
+            <dd><a href="/logout/">退出登录</a></dd>
+        </dl>
+    </li>
+</ul>
+<div class="wrap">
+
+    <div class="iframe-container">
+    <iframe id="bottomhtml" name="bottomhtml" src="../mybug/mybug/1" style="width:100%">
+    </iframe>
+    </div>
+
+</div>
+</body>
+<script>
+//注意：导航 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+
+  //…
+});
+//动态设置 iframe高度
+var ifm = $("#bottomhtml")
+var _clientHeight=document.documentElement.clientHeight
+ifm.css('height',_clientHeight-65)
+
+</script>
+</html>
