@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, session, request
+from flask import Blueprint, render_template, session, request, redirect, url_for
 from flask_login import login_required
 
-from dbutil import admin_util
+from dbutil import admin_util, notice_util
 
 adminBlueprint = Blueprint("admin", __name__, static_folder="static", template_folder="template",
                             url_prefix="/admin")
@@ -17,7 +17,8 @@ def adminIndex():
 @adminBlueprint.route("/notice")
 @login_required
 def noticeIndex():
-    return render_template("notice.html")
+    notice_list=notice_util.getNotice()
+    return render_template("notice.html",notice_list=notice_list)
 
 
 @adminBlueprint.route("/releaseNotice",methods=['POST','GET'])
@@ -31,8 +32,11 @@ def releaseNotice():
     else:
         return '{"state":1,"msg":"发布失败"}'
 
-
-
+@adminBlueprint.route("/deleteNotice/<notice_id>",methods=['POST','GET'])
+@login_required
+def deleteNotice(notice_id):
+    notice_util.deleteNotice(notice_id)
+    return redirect(url_for('admin.noticeIndex'))
 #添加用户
 @adminBlueprint.route("/addUser")
 @login_required
@@ -81,7 +85,7 @@ def doAddProject():
     return '{"state":0,"msg":"添加成功"}'
 
 
-#添加产品
+#添加产品分类
 @adminBlueprint.route("/addSort")
 @login_required
 def addSort():

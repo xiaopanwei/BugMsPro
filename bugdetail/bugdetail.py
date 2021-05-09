@@ -36,5 +36,8 @@ def bugDetailUpdate():
     solve_state = request.args.get('solve_state')
     solve_person = request.args.get('solve_person')
     bug_id=request.args.get('bug_id')
-    bugDetail_util.updata_bug_detail(bug_id,client_type,market,belong_bug_sort,bug_title,bug_content,reject_reason,belong_project,solve_state,solve_person)
+    solve_method=request.args.get('solve_method')
+    version=request.args.get('version')
+    bugDetail_util.updata_bug_detail(bug_id,client_type,market,belong_bug_sort,bug_title,bug_content,reject_reason,
+                                     belong_project,solve_state,solve_person,version,solve_method)
     return '{"state":0,"msg":"更新成功"}'

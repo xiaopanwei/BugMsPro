@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Bug详情</title>
     <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+
     <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
     <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
@@ -111,6 +112,17 @@
                 </div>
             </div>
         </div>
+        {% else %}
+        <div class="layui-col-md3">
+            <div class="layui-form-item">
+                <label class="layui-form-label">版本号</label>
+                <div class="layui-input-block">
+                    <input type="text" id="version" name="version" required lay-verify="required"
+                           value="{{bugDetail.version}}"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
         {% endif %}
     </div>
     <div class="layui-row">
@@ -133,7 +145,13 @@
         </div>
         <div class="layui-col-md6">
             <div class="layui-form-item">
-
+                <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">解决办法</label>
+                <div class="layui-input-block">
+                    <textarea id="solve_method" name="solve_method"
+                              class="layui-textarea">{{bugDetail.solve_method}}</textarea>
+                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -162,6 +180,7 @@ layui.use('form', function(){
    $("#solve_person").attr("disabled","disabled");
      $("#solve_state").attr("disabled","disabled");
     $("#solve_person").attr("disabled","disabled");
+     $("#version").attr("disabled","disabled");
     form.render('select');
   }
 //监听提交
@@ -181,6 +200,8 @@ layui.use('form', function(){
                 "&belong_project="+data.field.belong_project+
                 "&solve_state="+data.field.solve_state+
                 "&solve_person="+data.field.solve_person+
+                "&version="+data.field.version+
+                "&solve_method="+data.field.solve_method+
                  "&bug_id="+"{{bugDetail.bug_id}}",
                 success: function (data) {
                     layer.alert(data.msg,

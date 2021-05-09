@@ -32,6 +32,40 @@
     </div>
 </form>
 
+<table class="layui-table bugtable">
+    <colgroup>
+        <col width="50">
+        <col width="100">
+        <col width="50">
+        <col width="50">
+        <col width="50">
+
+    </colgroup>
+    <thead>
+    <caption>
+        <h2 style="margin-bottom: 10px">公告列表</h2>
+    </caption>
+    <tr>
+        <th>序号</th>
+        <th>公告标题</th>
+        <th>公告链接</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for notice in notice_list %}
+    <tr>
+        <td>{{notice_list.index(notice)+1}}</td>
+        <td>{{notice.notice_content}}</td>
+        <td>{{notice.notice_url}}</td>
+        <td>
+            <a class="a" href="deleteNotice/{{notice.id}}">删除</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
 <script>
 //Demo
 layui.use('form', function(){

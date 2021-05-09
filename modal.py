@@ -73,3 +73,9 @@ class bug_sort:
     def __init__(self):
         self.sort_id = ''
         self.sort_name = ''
+
+class noticeInfo:
+    def __init__(self):
+        self.id= ''
+        self.notice_content = ''
+        self.notice_url = ''

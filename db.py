@@ -3,9 +3,9 @@ import pymysql.cursors
 
 def get_connection():
     connection = pymysql.connect(
-        host='cdb-q35wa9cy.cd.tencentcdb.com', port=10094,
-        user='root',
-        password='a123456789',
+        host='rm-bp1ns8gwl0a1ihnyzro.mysql.rds.aliyuncs.com', port=3306,
+        user='xpw',
+        password='xpw0524!',
         db='xpw_bugpro',
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor)

@@ -23,7 +23,8 @@ def upload():
     bug_content = request.form.get('bug_content')
     market = request.form.get('market')
     submit_person = session.get('user_id')
-    upload_util.upload(client_type,belong_project,belong_bug_sort,bug_title,bug_content,market,submit_person)
+    bug_version = request.form.get('bug_version')
+    upload_util.upload(client_type,belong_project,belong_bug_sort,bug_title,bug_content,market,submit_person,bug_version)
     return redirect(url_for('home.homeIndex'))
 
 

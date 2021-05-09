@@ -48,14 +48,14 @@ def get_bug_detail(bugId):
 
 
 def updata_bug_detail(bug_id,client_type,market,belong_bug_sort,bug_title,bug_content,reject_reason,belong_project,solve_state,
-                      solve_person):
+                      solve_person,version,solve_method):
     conn = get_connection()
     cursor = conn.cursor()
     sql="UPDATE bugfk_bug SET client_type=%s,market=%s,belong_bug_sort=%s,bug_title=%s,bug_content=%s,reject_reason=%s," \
-        "belong_project=%s,solve_state=%s,solve_person=%s WHERE bug_id=%s"
+        "belong_project=%s,solve_state=%s,solve_person=%s,version=%s,solve_method=%s WHERE bug_id=%s"
     try:
         cursor.execute(sql, ((int)(client_type),int(market),int(belong_bug_sort),bug_title,bug_content,reject_reason,int(belong_project),int(solve_state),
-                             (int)(solve_person),bug_id))
+                             (int)(solve_person),version,solve_method,bug_id))
         conn.commit()
     finally:
         conn.close()

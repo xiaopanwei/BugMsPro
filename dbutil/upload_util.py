@@ -75,14 +75,14 @@ def get_bug_sort_list(client_id):
 
 
 #上传
-def upload(client_type,belong_project,belong_bug_sort,bug_title,bug_content,market,submit_person):
+def upload(client_type,belong_project,belong_bug_sort,bug_title,bug_content,market,submit_person,bug_version):
     submit_time = time.strftime('%Y-%m-%d %H:%M', time.localtime(time.time()))
     conn = get_connection()
     cursor = conn.cursor()
     sql = "INSERT INTO bugfk_bug (client_type,belong_project,belong_bug_sort,bug_title,bug_content,market," \
-          "submit_person,submit_time,flag,solve_state) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+          "submit_person,submit_time,flag,solve_state,version) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     try:
-        cursor.execute(sql, (client_type,belong_project,belong_bug_sort,bug_title,bug_content,market,submit_person,submit_time,0,0))
+        cursor.execute(sql, (client_type,belong_project,belong_bug_sort,bug_title,bug_content,market,submit_person,submit_time,0,0,bug_version))
         conn.commit()
     finally:
         conn.close()

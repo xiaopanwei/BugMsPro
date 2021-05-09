@@ -8,6 +8,8 @@
     <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
     <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+    <script type="text/javascript" src="{{ url_for('static',filename='js/swiper.min.js') }}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/swiper.min.css') }}" media="all">
 </head>
 <!--隐藏垂直滚动条-->
 <body class="container" style="overflow-y: hidden">
@@ -23,6 +25,7 @@
     <li class="layui-nav-item layui-this"><a href="../mybug/mybug/1" target="bottomhtml">我的bug</a></li>
     <li class="layui-nav-item"><a href="../upload/" target="bottomhtml">Bug上传</a></li>
     <li class="layui-nav-item"><a href="../search/searchindex" target="bottomhtml">搜索</a></li>
+
     <li class="layui-nav-item" style="float:right">
         <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{name}}</a>
         <dl class="layui-nav-child">
@@ -31,7 +34,15 @@
     </li>
 </ul>
 <div class="wrap">
-
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+             {% for notice in notice_list %}
+                <div class="swiper-slide" style="background-color: #ffffff; width: 100%;text-align: center;">
+                    <a style="font-size: 23px ;color: #1E9FFF" href="{{notice.notice_url}}">{{notice.notice_content}}</a>
+                </div>
+             {% endfor %}
+        </div>
+    </div>
     <div class="iframe-container">
     <iframe id="bottomhtml" name="bottomhtml" src="../mybug/mybug/1" style="width:100%">
     </iframe>
@@ -50,6 +61,36 @@ layui.use('element', function(){
 var ifm = $("#bottomhtml")
 var _clientHeight=document.documentElement.clientHeight
 ifm.css('height',_clientHeight-65)
+var mySwiper = new Swiper ('.swiper-container', {
+      preventClicks:false,
+      direction: 'vertical', // 垂直切换选项
+      loop: true, // 循环模式选项
+      autoplay:true,
+      delay:2000
+})
 
+  window.onload = f;
+    function f() {
+        $.ajax({
+                type: "post",
+                contentType:"application/string",
+                dataType:"json",
+                async:false,
+                url : "../home/getNotice",
+                success: function (data) {
+                    notice_list=data.notice_list;
+                    console.log(data)
+                    if (notice_list.length==0){
+                        $(".swiper-container").hide();
+                    }
+                    //使用动态加载的方式轮播有问题
+                     // for(var i = 0; i < notice_list.length; i++) {
+                     //        $(".swiper-wrapper").append('<div class="swiper-slide" style="background-color: #ffffff; width: 100%;text-align: center;">' +
+                     //            '<a style="font-size: 23px ;color: #1E9FFF" href="'+ notice_list[i].notice_url+
+                     //            '" target="_blank">'+notice_list[i].notice_content+' </a></div>');
+                     // }
+              	}
+           	});
+    }
 </script>
 </html>

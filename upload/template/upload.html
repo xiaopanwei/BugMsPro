@@ -10,8 +10,8 @@
 </head>
 <body>
 <h1 class="h1">Bug上传</h1>
-
-<form class="layui-form bugform" method="post" action="/upload/upload">
+<!--target标记为父控件-->
+<form class="layui-form bugform" method="post" action="/upload/upload"  target="_parent">
 
     <div class="layui-row">
         <div class="layui-col-md6">
@@ -83,6 +83,14 @@
         </div>
         <div class="layui-col-md6">
             <div class="layui-form-item">
+             <div class="layui-form-item">
+                <label class="layui-form-label">版本号</label>
+                <div class="layui-input-block">
+                    <input type="text" id="bug_version" name="bug_version" required lay-verify="required" placeholder="请输入问题程序版本号"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
 
             </div>
         </div>
