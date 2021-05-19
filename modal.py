@@ -79,3 +79,23 @@ class noticeInfo:
         self.id= ''
         self.notice_content = ''
         self.notice_url = ''
+
+class imageInfo:
+    def __init__(self):
+        self.image_id= ''
+        self.image_url = ''
+
+
+class ossModal:
+    def __init__(self):
+        self.keyId="LTAI5tFevYkMrJujuoMwTi81"
+        self.keySecret="2OGCpOTa2jopR3eXFHAgb93HltjRbm"
+        self.url="http://oss-cn-beijing.aliyuncs.com"
+        self.public_url="https://xpw-pro.oss-cn-beijing.aliyuncs.com/"
+
+class db:
+    def __init__(self):
+        self.host='rm-bp1ns8gwl0a1ihnyzro.mysql.rds.aliyuncs.com'
+        self.user_name='xpw'
+        self.password='xpw0524!'
+        self.db_name='xpw_bugpro'
