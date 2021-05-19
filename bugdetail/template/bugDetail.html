@@ -127,6 +127,25 @@
     </div>
     <div class="layui-row">
         <div class="layui-col-md6">
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">Bug详细内容</label>
+                <div class="layui-input-block">
+                    <textarea id="bug_content" name="bug_content"
+                              class="layui-textarea">{{bugDetail.bug_content}}</textarea>
+                </div>
+            </div>
+             <div class="layui-form-item">
+                <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">解决办法</label>
+                <div class="layui-input-block">
+                    <textarea id="solve_method" name="solve_method"
+                              class="layui-textarea">{{bugDetail.solve_method}}</textarea>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
             <div class="layui-form-item">
                 <label class="layui-form-label">Bug标题</label>
                 <div class="layui-input-block">
@@ -135,23 +154,23 @@
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">Bug详细内容</label>
-                <div class="layui-input-block">
-                    <textarea id="bug_content" name="bug_content"
-                              class="layui-textarea">{{bugDetail.bug_content}}</textarea>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-md6">
             <div class="layui-form-item">
-                <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">解决办法</label>
-                <div class="layui-input-block">
-                    <textarea id="solve_method" name="solve_method"
-                              class="layui-textarea">{{bugDetail.solve_method}}</textarea>
+                <div class="layui-form-item">
+                    <label class="layui-form-label labweight">Bug图片</label>
+                    <input type="button" class="layui-btn uploadimage" id="test1" value= "上传图片">
                 </div>
-            </div>
+                <div id="layer-photos-demo" class="layer-photos-demo">
+                    {% for path in image_path %}
+                    <div class="imgDiv">
+                        <img class="pimg" layer-pid layer-src="{{path.image_url}}" src="{{path.image_url}}">
+                        <!-- 此处是引入图片的路径 -->
+                        <a href="/bugDetail/deleteImage/{{bugDetail.bug_id}}/{{path.image_id}}">
+                            <i class="layui-icon layui-icon-close-fill delete"
+                               style="font-size: 30px; color: #1E9FFF;"></i>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -164,7 +183,6 @@
         </div>
     </div>
 </form>
-
 <script>
 layui.use('form', function(){
   var form = layui.form;
@@ -250,8 +268,34 @@ layui.use('form', function(){
     });
 
 
-  });
-
+});
+</script>
+<script>
+  layui.use('layer', function(){
+      var layer = layui.layer;
+        //调用示例
+      layer.photos({
+  photos: '#layer-photos-demo'
+  ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+});
+});
+</script>
+<script>
+    layui.use('upload', function(){
+      var upload = layui.upload;
+      //执行实例
+      var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,url: '../bugDetail/loadimage/{{bugDetail.bug_id}}' //上传接口
+            ,done: function(res){
+              alert(res.msg)
+              location.reload()
+            }
+            ,error: function(){
+                alert("shibai")
+            }
+      });
+    });
 </script>
 </body>
 </html>

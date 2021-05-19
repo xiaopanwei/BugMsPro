@@ -12,5 +12,5 @@ remindBlueprint = Blueprint("remind", __name__, static_folder="static", template
 @login_required
 def remind(bug_id,page):
     bug=get_bug_detail(bug_id)
-    email_send.sendemail("我<949888408@qq.com>", "bugId:"+str(bug.bug_id)+"  Bug内容："+bug.bug_content+"   等待处理")
+    email_send.sendemail("949888408@qq.com", "bugId:"+str(bug.bug_id)+"  Bug内容："+bug.bug_content+"   等待处理")
     return redirect(url_for('mybug.mybugIndex',page=page))

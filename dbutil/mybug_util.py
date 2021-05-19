@@ -10,9 +10,9 @@ def getmybuglist(userid,page, pageSize):
     buglist = []
     sql = "SELECT * FROM bugfk_bug " \
           "LEFT JOIN bugfk_project on bugfk_bug.belong_project=bugfk_project.project_id "\
-          "WHERE submit_person=%s  limit %s,%s"
+          "WHERE submit_person=%s or solve_person=%s limit %s,%s"
     try:
-        cursor.execute(sql, (userid,limit,pageSize))
+        cursor.execute(sql, (userid,userid,limit,pageSize))
         for c in cursor:
             bug = buginfo()
             bug.bug_id = c['bug_id']
@@ -59,3 +59,17 @@ def getmybuglist_count(userid):
     finally:
         conn.close()
     return count
+
+def getUnResultEmail():
+    conn = get_connection()
+    cursor = conn.cursor()
+    emailList = []
+    sql = "SELECT DISTINCT user_email FROM bugfk_bug  JOIN bugfk_user on " \
+          "bugfk_bug.solve_person=bugfk_user.user_id WHERE solve_state=0 and flag=0"
+    try:
+        cursor.execute(sql)
+        for c in cursor:
+            emailList.append(c['user_email'])
+    finally:
+        conn.close()
+    return emailList

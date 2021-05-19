@@ -1,12 +1,15 @@
 import pymysql.cursors
 
+from modal import db
+
 
 def get_connection():
+    dbInfo = db()
     connection = pymysql.connect(
-        host='rm-bp1ns8gwl0a1ihnyzro.mysql.rds.aliyuncs.com', port=3306,
-        user='xpw',
-        password='xpw0524!',
-        db='xpw_bugpro',
+        host=dbInfo.host, port=3306,
+        user=dbInfo.user_name,
+        password=dbInfo.password,
+        db=dbInfo.db_name,
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor)
     return connection
