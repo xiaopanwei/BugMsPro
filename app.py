@@ -1,4 +1,4 @@
-from flask import Flask
+﻿from flask import Flask
 from flask_login import LoginManager
 from flask_apscheduler import APScheduler
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     # todo 定時任務
     # scheduler.init_app(app)
     # scheduler.start()
-    app.run(debug=True)
+    app.run(debug=True,host="0.0.0.0")
 
 
 
