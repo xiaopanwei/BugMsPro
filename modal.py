@@ -88,14 +88,15 @@ class imageInfo:
 
 class ossModal:
     def __init__(self):
-        self.keyId="LTAI5tFevYkMrJujuoMwTi81"
-        self.keySecret="2OGCpOTa2jopR3eXFHAgb93HltjRbm"
-        self.url="http://oss-cn-beijing.aliyuncs.com"
-        self.public_url="https://xpw-pro.oss-cn-beijing.aliyuncs.com/"
+        self.keyId = "输入你的阿里云OSS keyid"
+        self.keySecret = "输入你的阿里云OSS keySecret"
+        self.url = "http://oss-cn-hangzhou.aliyuncs.com"
+        self.public_url = "https://yourbucketname.oss-cn-hangzhou.aliyuncs.com/"
+
 
 class db:
     def __init__(self):
-        self.host='rm-bp1ns8gwl0a1ihnyzro.mysql.rds.aliyuncs.com'
-        self.user_name='xpw'
-        self.password='xpw0524!'
-        self.db_name='xpw_bugpro'
+        self.host = '输入你的云数据库host'
+        self.user_name = '输入你的云数据库 账号'
+        self.password = '输入你的云数据库 密码'
+        self.db_name = '数据库名称'
